@@ -1,0 +1,115 @@
+/* peticion de PJECZ a BBVA */
+curl https://sand-api.ecommercebbva.com/v1/mptdggroasfcmqs8plpy/charges \
+   -u sk_326c6d0443f6457aae29ffbd48f7d1be: \
+   -H "Content-type: application/json" \
+   -X POST -d '{
+   "affiliation_bbva" : "781500",
+   "amount" : 100,
+   "description" : "Cargo inicial a mi cuenta",
+   "currency" : "MXN",
+   "order_id" : "oid-00051",
+   "customer": {
+        "name": "Juan",
+        "last_name": "Vazquez Juarez",
+        "email": "juan.vazquez@empresa.com.mx",
+        "phone_number": "555-444-3322"
+   },
+   "redirect_url": "https://micomercio.com"
+}'
+
+/* Respuesta de BBVA */
+
+{
+    "id": "trz8v1n3g992xtylohts",
+    "authorization": null,
+    "operation_type": "in",
+    "method": "card",
+    "transaction_type": "charge",
+    "status": "charge_pending",
+    "conciliated": false,
+    "creation_date": "2019-04-03T03:57:58-06:00",
+    "operation_date": "2019-04-03T03:57:58-06:00",
+    "description": "Pago",
+    "error_message": null,
+    "order_id": "oid-00051",
+    "payment_method": {
+        "type": "redirect",
+        "url": "https://sand-api.ecommercebbva.com/v1/mptdggroasfcmqs8plpy/charges/trywj1kyx7vczirifkyw/card_capture"
+    },
+    "currency": "MXN",
+    "amount": 100.00,
+    "customer": {
+        "name": "Juan",
+        "last_name": "Vazquez Juarez",
+        "email": "juan.vazquez@empresa.com.mx",
+        "phone_number": "555-444-3322",
+        "address": null,
+        "creation_date": "2019-04-03T03:57:58-06:00",
+        "external_id": null,
+        "clabe": null
+    }
+}
+
+
+
+/*************** Peticion de Cargo  **********************/
+
+
+
+    Definición
+
+Comercio
+GET https://sand-api.ecommercebbva.com/v1/{MERCHANT_ID}/charges/{TRANSACTION_ID}
+
+    Ejemplo de petición con comercio
+
+curl https://sand-api.ecommercebbva.com/v1/mptdggroasfcmqs8plpy/customers/tr6cxbcefzatd10guvvw \
+   -u sk_326c6d0443f6457aae29ffbd48f7d1be:
+
+    Ejemplo de respuesta
+
+{
+   "id":"tr6cxbcefzatd10guvvw",
+   "amount":100.00,
+   "authorization":"801585",
+   "method":"card",
+   "operation_type":"in",
+   "transaction_type":"charge",
+   "card":{
+      "type":"debit",
+      "brand":"visa",
+      "address":null,
+      "card_number":"411111XXXXXX1111",
+      "holder_name":"Juan Perez Ramirez",
+      "expiration_year":"20",
+      "expiration_month":"12",
+      "allows_charges":true,
+      "allows_payouts":true,
+      "bank_name":"Banamex",
+      "bank_code":"002"
+   },
+   "status":"completed",
+   "refund":{
+      "id":"trcbsmjkroqmjobxqhpb",
+      "amount":100.00,
+      "authorization":"801585",
+      "method":"card",
+      "operation_type":"out",
+      "transaction_type":"refund",
+      "status":"completed",
+      "currency":"MXN",
+      "creation_date":"2014-05-26T13:56:21-05:00",
+      "operation_date":"2014-05-26T13:56:21-05:00",
+      "description":"devolucion",
+      "error_message":null,
+      "order_id":null,
+      "customer_id":"ag4nktpdzebjiye1tlze"
+   },
+   "currency":"MXN",
+   "creation_date":"2014-05-26T11:56:25-05:00",
+   "operation_date":"2014-05-26T11:56:25-05:00",
+   "description":"Cargo inicial a mi cuenta",
+   "error_message":null,
+   "order_id":"oid-00052",
+   "customer_id":"ag4nktpdzebjiye1tlze"
+}
